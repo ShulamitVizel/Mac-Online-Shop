@@ -21,7 +21,7 @@ const Home = () => {
   ];
 
   const items = [
-    { id: 1, image: "https://assets.boots.ie/content/dam/boots/brands/brand---m/mac/mac_cp-find-your-shade/mac_cp_09-2023/2023-09_mac_content-page_find-your-shade_50-static_finding-your-undertone.dam.ts=1695115813234.jpg", caption: "Discover your makeup shade" },
+    { id: 1, image: "https://m.maccosmetics.co.il/media/export/cms/collections/fix_plus_stay_over/fix_plus_services_3_m.jpg", caption: "Discover your makeup shade" },
     { id: 2, image: "https://www.maccosmetics.co.za/media/export/cms/GlowPlay%20Blush.jpg", caption: "Treat yourself or your loved ones with our perfect gift boxes." },
     { id: 3, image: "https://detaly.co.il/wp-content/uploads/2024/09/MAC_FY25_StudioRadianceConcealer_ShadeRange_2_sRGB72.jpg", caption: "Free shipping with a purchase of NIS 249" },
   ];

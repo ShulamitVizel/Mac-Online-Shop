@@ -56,7 +56,7 @@ const Navbar = () => {
                   color: "#fff",
                   fontWeight: "bold",
                   textTransform: "none",
-                  fontSize: "18px",
+                  fontSize: "20px",
                   display: "flex",
                   alignItems: "center",
                   gap: "0.5rem",

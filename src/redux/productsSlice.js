@@ -4,7 +4,10 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://dummyjson.com/c/2d60-d0e5-4018-93e2');
+      // הוספת השהייה של 3 שניות
+      await new Promise((res) => setTimeout(res, 3000));
+
+      const response = await fetch('https://dummyjson.com/c/082a-be91-46ef-a3e2');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -18,6 +21,7 @@ export const fetchProducts = createAsyncThunk(
 
 const initialState = {
   allProducts: [],
+  filteredProducts: [],
   isLoading: false,
   error: null
 };
@@ -25,7 +29,13 @@ const initialState = {
 const productSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    filterProductsByCategory: (state, action) => {
+      state.filteredProducts = state.allProducts.filter(
+        (product) => product.category === action.payload
+      );
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -45,6 +55,7 @@ const productSlice = createSlice({
 });
 
 export const { filterProductsByCategory } = productSlice.actions;
+
 export const selectProducts = (state) => state.products.filteredProducts;
 export const selectIsLoading = (state) => state.products.isLoading;
 export const selectError = (state) => state.products.error;

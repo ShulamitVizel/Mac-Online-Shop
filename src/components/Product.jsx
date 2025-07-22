@@ -24,7 +24,7 @@ const Product = ({ product, onAddToCart }) => {
     >
       <CardMedia
         component="img"
-        image={product.image_url}
+        image={product.thumbnail}
         alt={product.name}
         sx={{
           height: 220,
@@ -47,7 +47,7 @@ const Product = ({ product, onAddToCart }) => {
             textTransform: 'uppercase',
           }}
         >
-          {product.name}
+          {product.title}
         </Typography>
 
         <Typography

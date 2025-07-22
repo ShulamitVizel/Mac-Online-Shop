@@ -2,7 +2,7 @@ export const fetchData = async () => {
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
             try {
-                const response = await fetch('https://dummyjson.com/c/2d60-d0e5-4018-93e2/products');
+                const response = await fetch('https://dummyjson.com/c/082a-be91-46ef-a3e2');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
