@@ -2,14 +2,6 @@
 
 A modern online cosmetics store inspired by the MAC Cosmetics brand. This project demonstrates a full-featured frontend shopping experience built with React, Redux, and Material UI.
 
-## 🌐 Live Demo
-
-Coming soon via Netlify...
-
-## 📸 Preview
-
-![Screenshot](./public/screenshot.png)
-
 ## 🛍 Features
 
 - 🧾 Display categorized product lists (Lips, Eyes, Face, etc.)
@@ -45,7 +37,7 @@ npm install
 ### 3. Start development server
 
 ```bash
-npm start
+npm run dev
 ```
 
 ### 4. Open in browser
