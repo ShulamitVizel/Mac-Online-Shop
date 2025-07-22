@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { AppBar, Toolbar, Typography, Button, Box, Badge } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Box, Badge, IconButton } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import cartIcon from "../assets/add-to-basket.png";
 import logo from "../assets/brand.png";
+import CartPreview from "./CartPreview";
 
 const Navbar = () => {
   const { items } = useSelector((state) => state.cart);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const [isOpen, setIsOpen] = useState(false);
+  const previewRef = useRef();
+
+  // סגירה כאשר לוחצים מחוץ לתצוגת העגלה
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (previewRef.current && !previewRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const navLinks = [
     { path: "/", label: "Home" },
@@ -19,14 +33,12 @@ const Navbar = () => {
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap"
-        rel="stylesheet"
-      />
       <AppBar position="fixed" sx={{ backgroundColor: "#000", padding: "0.5rem 0", zIndex: 1201 }}>
         <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          <Box>
-            <NavLink to="/cart" style={{ textDecoration: 'none' }}>
+
+          {/* עגלה + כפתור פתיחה */}
+          <Box sx={{ position: "relative", display: "inline-block" }} ref={previewRef}>
+            <IconButton onClick={() => setIsOpen((prev) => !prev)} sx={{ p: 0 }}>
               <Badge
                 badgeContent={totalItems}
                 sx={{
@@ -41,11 +53,32 @@ const Navbar = () => {
                   },
                 }}
               >
-                <img src={cartIcon} alt="add-to-basket" style={{ width: "40px", height: "40px" }} />
+                <img src={cartIcon} alt="Cart" style={{ width: "40px", height: "40px" }} />
               </Badge>
-            </NavLink>
+            </IconButton>
+
+            {/* תיבת תצוגה נפתחת בלחיצה */}
+            {isOpen && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50px",
+                  left: "50%",
+                  transform: "translateX(-10%)",
+                  width: "400px",
+                  backgroundColor: "white",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                  borderRadius: "8px",
+                  padding: "16px",
+                  zIndex: 1300,
+                }}
+              >
+                <CartPreview />
+              </Box>
+            )}
           </Box>
 
+          {/* קישורי ניווט */}
           <Box sx={{ display: "flex", gap: "5rem", fontFamily: "'Parisienne', cursive" }}>
             {navLinks.map((link) => (
               <Button
@@ -61,7 +94,7 @@ const Navbar = () => {
                   alignItems: "center",
                   gap: "0.5rem",
                   "&.active": { borderBottom: "2px solid #ff4081" },
-                  fontFamily: " 'Quattrocento', serif",
+                  fontFamily: "'Quattrocento', serif",
                 }}
               >
                 {link.label}
@@ -69,15 +102,15 @@ const Navbar = () => {
             ))}
           </Box>
 
+          {/* לוגו */}
           <Box>
             <NavLink to="/" style={{ textDecoration: "none" }}>
               <Typography
                 variant="h5"
-                component="div"
                 sx={{
                   fontWeight: "bold",
                   color: "#fff",
-                  fontFamily: " 'Marck Script', cursive",
+                  fontFamily: "'Marck Script', cursive",
                 }}
               >
                 <img src={logo} alt="brand" />
@@ -86,6 +119,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
+
       <Box sx={{ height: "80px" }} />
     </>
   );
